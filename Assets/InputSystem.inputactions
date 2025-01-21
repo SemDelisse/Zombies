@@ -15,9 +15,45 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "jump",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "87b878d7-678b-4ee8-bacb-de29196c4d75",
+                    "id": "93edcd12-d0f6-4a36-a385-b8fedd3a5e78",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot / Attack",
+                    "type": "Button",
+                    "id": "d5346bc4-fbab-4c27-87c5-ad79116669e7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Use",
+                    "type": "Button",
+                    "id": "98571927-d1fb-45de-bfc8-cc4ed4efb0ae",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape / Pause",
+                    "type": "Button",
+                    "id": "377bdb8f-4278-414a-aab3-dde594a486c6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Inventory / Menu",
+                    "type": "Button",
+                    "id": "e7a5fb22-1e5e-46df-9358-54298d2a1ad8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -82,12 +118,56 @@
                 },
                 {
                     "name": "",
-                    "id": "409c4555-0213-4e18-8063-e974d3db8755",
-                    "path": "<Keyboard>/space",
+                    "id": "d043c3ee-612a-49a4-b06b-90ec7a95bf02",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "jump",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ddcd999-ab9d-4acd-b5db-af9a98b157aa",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Shoot / Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ec7b4c3-d539-46af-88f4-9def35f93ce1",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd78de5b-40db-4e24-973c-d42aa9fe45d0",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape / Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "afbc16ef-7925-495e-96b5-83578f0dc434",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory / Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

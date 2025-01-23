@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerControles : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     public bool inMenu = false;
 
     [Header("Movement")]
@@ -15,29 +15,35 @@ public class PlayerControles : MonoBehaviour
     private Vector2 mousePosition;
 
     [Header("Attack System")]
-    // Melee System
-    [SerializeField] private MeleeWeaponSystem _MeleeWeaponSystem;
+    private MeleeWeaponSystem _MeleeWeaponSystem;
+    private ShootingWeaponSystem _RangedWeaponSystem;
+    private enum WeaponType { Melee, Ranged }
+    private WeaponType currentWeapon;
+    private float lastSwitchTime;
+    [SerializeField] private float switchCooldown = 0.1f;
+
+    [Header("Item System")]
 
     [Header("Inventory")]
-    public Canvas inventoryMenu;
+    [SerializeField] private Canvas inventoryMenu;
 
     [Header("Pause menu")]
-    public Canvas pauseMenu;
+    [SerializeField] private Canvas pauseMenu;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        _MeleeWeaponSystem = GetComponent<MeleeWeaponSystem>();
+        _RangedWeaponSystem = GetComponent<ShootingWeaponSystem>();
+        currentWeapon = WeaponType.Melee;
     }
 
     private void Update()
     {
         if (!inMenu)
         {
-            // Moving
             rb.velocity = moveInput * moveSpeed;
 
-            // Mouse rotation
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
@@ -59,14 +65,38 @@ public class PlayerControles : MonoBehaviour
         
     }
 
+    public void SwitchWeapon(InputAction.CallbackContext context)
+    {
+        if (Time.time < lastSwitchTime + switchCooldown) return;
+        float scrollValue = context.ReadValue<float>();
+
+        if (scrollValue > 0)
+        {
+            Debug.Log("ranged");
+            currentWeapon = WeaponType.Ranged;
+        }
+        else if (scrollValue < 0)
+        {
+            Debug.Log("melee");
+            currentWeapon = WeaponType.Melee;
+        }
+    }
+
     public void Attack(InputAction.CallbackContext context)
     {
-        _MeleeWeaponSystem.PerformAttack();
+        if (currentWeapon == WeaponType.Melee)
+        {
+            _MeleeWeaponSystem.PerformAttack();
+        }
+        else if (currentWeapon == WeaponType.Ranged)
+        {
+            _RangedWeaponSystem.PerformAttack();
+        }
     }
 
     public void Use(InputAction.CallbackContext context)
     {
-
+        
     }
 
     public void Inventory(InputAction.CallbackContext context)
@@ -88,9 +118,9 @@ public class PlayerControles : MonoBehaviour
 
     public void Pause()
     {
-        if(pauseMenu != null)
+        if (pauseMenu != null)
         {
-            if(pauseMenu.gameObject.activeSelf)
+            if (pauseMenu.gameObject.activeSelf)
             {
                 pauseMenu.gameObject.SetActive(false);
                 inMenu = false;

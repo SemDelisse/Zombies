@@ -7,16 +7,16 @@ public class GameUI : MonoBehaviour
 {
     [Header("Player Info")]
     [SerializeField] private HealthSystem _HealthSystem;
-    public int health;
-    public int gold = 0;
-    public int silver = 0;
-    public int ammo = 0;
-    public string equipedWeapon;
-    public string equipedItem;
+    [SerializeField] private int health;
+    [SerializeField] private int gold = 0;
+    [SerializeField] private int silver = 0;
+    [SerializeField] private int ammo = 0;
+    [SerializeField] private string equipedWeapon;
+    [SerializeField] private string equipedItem;
 
     [Header("Game Info")]
-    public int enemiesLeft;
-    public int roundNumber = 1;
+    [SerializeField] private int enemiesLeft;
+    [SerializeField] private int roundNumber = 1;
     // Game time and time till next round also needs to be in this script
 
     // Start is called before the first frame update

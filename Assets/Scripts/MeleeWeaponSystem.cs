@@ -19,13 +19,14 @@ public class MeleeWeaponSystem : MonoBehaviour
     public int currentWeaponIndex;
 
     [SerializeField] private LayerMask targetLayer;
-    [SerializeField] private int absoluteMaxTargets = 50;
+    private int absoluteMaxTargets = 50;
 
     private Vector2 attackDirection;
     private float cooldownTimer;
     private Collider2D[] hitColliders;
 
     private void Awake() => hitColliders = new Collider2D[absoluteMaxTargets];
+
 
     void Update()
     {

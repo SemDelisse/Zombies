@@ -1188,6 +1188,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 70b108ce-a93a-404c-a705-db7bece25823
     m_ActionName: Player/SwitchWeapon[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 574331954}
+        m_TargetAssemblyTypeName: PlayerControles, Assembly-CSharp
+        m_MethodName: Sprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ad5a1f4c-0135-4263-aae8-02cc504a93af
+    m_ActionName: Player/Sprint[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -1347,6 +1363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inMenu: 0
   moveSpeed: 5
+  sprintMultiplier: 0
   switchCooldown: 0.1
   inventoryMenu: {fileID: 0}
   pauseMenu: {fileID: 956018319}
@@ -1381,7 +1398,6 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
-  absoluteMaxTargets: 50
 --- !u!114 &574331956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1405,7 +1421,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 574331948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25c6c3a92aeff794787f5278e271ad53, type: 3}
+  m_Script: {fileID: 11500000, guid: c2eacb1f0e2237d43ab1e1197cafbc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:

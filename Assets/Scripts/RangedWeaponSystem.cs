@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class ShootingWeaponSystem : MonoBehaviour
+public class RangedWeaponSystem : MonoBehaviour
 {
     [System.Serializable]
     public class ShootingWeapon

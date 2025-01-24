@@ -7,16 +7,17 @@ using UnityEngine.InputSystem;
 public class PlayerControles : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public bool inMenu = false;
+    public bool inMenu;
 
     [Header("Movement")]
     public float moveSpeed = 5f;
+    public int sprintMultiplier = 1;
     private Vector2 moveInput;
     private Vector2 mousePosition;
 
     [Header("Attack System")]
     private MeleeWeaponSystem _MeleeWeaponSystem;
-    private ShootingWeaponSystem _RangedWeaponSystem;
+    private RangedWeaponSystem _RangedWeaponSystem;
     private enum WeaponType { Melee, Ranged }
     private WeaponType currentWeapon;
     private float lastSwitchTime;
@@ -34,7 +35,7 @@ public class PlayerControles : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         _MeleeWeaponSystem = GetComponent<MeleeWeaponSystem>();
-        _RangedWeaponSystem = GetComponent<ShootingWeaponSystem>();
+        _RangedWeaponSystem = GetComponent<RangedWeaponSystem>();
         currentWeapon = WeaponType.Melee;
     }
 
@@ -42,7 +43,7 @@ public class PlayerControles : MonoBehaviour
     {
         if (!inMenu)
         {
-            rb.velocity = moveInput * moveSpeed;
+            rb.velocity = moveInput * moveSpeed * sprintMultiplier;
 
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -60,6 +61,11 @@ public class PlayerControles : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
     }
 
+    public void Sprint(InputAction.CallbackContext context)
+    {
+        
+    }
+
     public void Interact(InputAction.CallbackContext context)
     {
         
@@ -70,15 +76,18 @@ public class PlayerControles : MonoBehaviour
         if (Time.time < lastSwitchTime + switchCooldown) return;
         float scrollValue = context.ReadValue<float>();
 
-        if (scrollValue > 0)
+        if (scrollValue > 0 || scrollValue < 0)
         {
-            Debug.Log("ranged");
-            currentWeapon = WeaponType.Ranged;
-        }
-        else if (scrollValue < 0)
-        {
-            Debug.Log("melee");
-            currentWeapon = WeaponType.Melee;
+            lastSwitchTime = Time.time;
+            if (currentWeapon == WeaponType.Melee)
+            {
+                Debug.Log("ranged");
+                currentWeapon = WeaponType.Ranged;
+            } else if (currentWeapon == WeaponType.Ranged)
+            {
+                Debug.Log("melee");
+                currentWeapon = WeaponType.Melee;
+            }
         }
     }
 

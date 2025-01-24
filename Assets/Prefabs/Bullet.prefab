@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   damage: 0
+  _PlayerControles: {fileID: 0}
 --- !u!50 &6725180659720723150
 Rigidbody2D:
   serializedVersion: 4

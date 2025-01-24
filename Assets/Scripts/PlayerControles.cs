@@ -11,7 +11,8 @@ public class PlayerControles : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed = 5f;
-    public int sprintMultiplier = 1;
+    public float maxSprint = 1.5f;
+    private float sprintMultiplier = 1f;
     private Vector2 moveInput;
     private Vector2 mousePosition;
 
@@ -21,7 +22,7 @@ public class PlayerControles : MonoBehaviour
     private enum WeaponType { Melee, Ranged }
     private WeaponType currentWeapon;
     private float lastSwitchTime;
-    [SerializeField] private float switchCooldown = 0.1f;
+    private float switchCooldown = 0.1f;
 
     [Header("Item System")]
 
@@ -63,7 +64,14 @@ public class PlayerControles : MonoBehaviour
 
     public void Sprint(InputAction.CallbackContext context)
     {
-        
+        if (context.started)
+        {
+            sprintMultiplier = maxSprint;
+        }
+        else if (context.canceled)
+        {
+            sprintMultiplier = 1f;
+        }
     }
 
     public void Interact(InputAction.CallbackContext context)
@@ -91,7 +99,7 @@ public class PlayerControles : MonoBehaviour
         }
     }
 
-    public void Attack(InputAction.CallbackContext context)
+    public void Attack()
     {
         if (currentWeapon == WeaponType.Melee)
         {
@@ -103,12 +111,12 @@ public class PlayerControles : MonoBehaviour
         }
     }
 
-    public void Use(InputAction.CallbackContext context)
+    public void Use()
     {
         
     }
 
-    public void Inventory(InputAction.CallbackContext context)
+    public void Inventory()
     {
         if (inventoryMenu != null)
         {

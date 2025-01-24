@@ -5,17 +5,16 @@ using UnityEngine;
 public class RangedWeaponSystem : MonoBehaviour
 {
     [System.Serializable]
-    public class ShootingWeapon
+    public class RangedWeapon
     {
         public string weaponName;
         public int damage;
         public float bulletSpeed;
-        public float attackSpeed;
         public float cooldown;
         public GameObject bulletPrefab;
     }
 
-    public List<ShootingWeapon> weapons = new List<ShootingWeapon>();
+    public List<RangedWeapon> weapons = new List<RangedWeapon>();
     [SerializeField] private int currentWeaponIndex;
 
     private float cooldownTimer;
@@ -29,7 +28,7 @@ public class RangedWeaponSystem : MonoBehaviour
     public void PerformAttack()
     {
         if (cooldownTimer > 0) return;
-        ShootingWeapon weapon = weapons[currentWeaponIndex];
+        RangedWeapon weapon = weapons[currentWeaponIndex];
         cooldownTimer = weapon.cooldown;
 
         GameObject bulletInstance = Instantiate(weapon.bulletPrefab, shootingPoint.position, transform.rotation);

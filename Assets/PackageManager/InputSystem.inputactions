@@ -16,9 +16,9 @@
                 },
                 {
                     "name": "Sprint",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "ad5a1f4c-0135-4263-aae8-02cc504a93af",
-                    "expectedControlType": "Touch",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

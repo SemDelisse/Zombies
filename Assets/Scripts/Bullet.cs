@@ -7,13 +7,18 @@ public class Bullet : MonoBehaviour
 {
     public float speed;
     public int damage;
+
     private Rigidbody2D rb;
     private PlayerControles _PlayerControles;
+
+    private float maxTime = 10f;
+    private float timer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         _PlayerControles = FindObjectOfType<PlayerControles>();
+        timer = maxTime;
     }
 
     private void Update()
@@ -28,6 +33,13 @@ public class Bullet : MonoBehaviour
             {
                 rb.velocity = transform.up * 0;
             }
+        }
+
+        timer -= Time.deltaTime;
+
+        if (timer <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 

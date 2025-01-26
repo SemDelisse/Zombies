@@ -15,7 +15,7 @@ public class RangedWeaponSystem : MonoBehaviour
     }
 
     public List<RangedWeapon> weapons = new List<RangedWeapon>();
-    [SerializeField] private int currentWeaponIndex;
+    public int currentWeaponIndex;
 
     private float cooldownTimer;
     [SerializeField] private Transform shootingPoint;
@@ -43,8 +43,7 @@ public class RangedWeaponSystem : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (shootingPoint == null)
-            return;
+        if (shootingPoint == null) return;
 
         Vector2 start = shootingPoint.position;
         Vector2 direction = shootingPoint.right;

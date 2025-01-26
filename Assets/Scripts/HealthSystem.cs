@@ -7,6 +7,7 @@ public class HealthSystem : MonoBehaviour
 {
     public int maxHealth = 5;
     public int currentHealth;
+    public int killCount = 0;
 
     void Start()
     {
@@ -24,11 +25,11 @@ public class HealthSystem : MonoBehaviour
         {
             if (gameObject.CompareTag("Player"))
             {
-                
+
             }
             else if (gameObject.CompareTag("Enemy"))
             {
-                //ScoreSystem.Instance.AddKill(1);
+                killCount++;
                 Destroy(gameObject);
             }
         }

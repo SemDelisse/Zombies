@@ -19,10 +19,13 @@ public class PlayerControles : MonoBehaviour
     [Header("Attack System")]
     private MeleeWeaponSystem _MeleeWeaponSystem;
     private RangedWeaponSystem _RangedWeaponSystem;
-    private enum WeaponType { Melee, Ranged }
-    private WeaponType currentWeapon;
+    public enum WeaponType { Melee, Ranged }
+    public WeaponType currentWeapon;
     private float lastSwitchTime;
     private float switchCooldown = 0.1f;
+
+    [Header("Interact System")]
+    private Interact _Interact;
 
     [Header("Item System")]
 
@@ -37,7 +40,8 @@ public class PlayerControles : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         _MeleeWeaponSystem = GetComponent<MeleeWeaponSystem>();
         _RangedWeaponSystem = GetComponent<RangedWeaponSystem>();
-        currentWeapon = WeaponType.Melee;
+        _Interact = GetComponent<Interact>();
+        currentWeapon = WeaponType.Ranged;
     }
 
     private void Update()
@@ -74,7 +78,7 @@ public class PlayerControles : MonoBehaviour
         }
     }
 
-    public void Interact(InputAction.CallbackContext context)
+    public void Interact()
     {
         
     }

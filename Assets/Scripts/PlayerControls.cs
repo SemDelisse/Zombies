@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControles : MonoBehaviour
+public class PlayerControls : MonoBehaviour
 {
     private Rigidbody2D rb;
     public bool inMenu;
@@ -15,7 +15,7 @@ public class PlayerControles : MonoBehaviour
     private float sprintMultiplier = 1f;
     private Vector2 moveInput;
     private Vector2 mousePosition;
-
+    
     [Header("Attack System")]
     private MeleeWeaponSystem _MeleeWeaponSystem;
     private RangedWeaponSystem _RangedWeaponSystem;
@@ -35,8 +35,7 @@ public class PlayerControles : MonoBehaviour
     [Header("Pause menu")]
     [SerializeField] private Canvas pauseMenu;
 
-    void Start()
-    {
+    void Start() {
         rb = GetComponent<Rigidbody2D>();
         _MeleeWeaponSystem = GetComponent<MeleeWeaponSystem>();
         _RangedWeaponSystem = GetComponent<RangedWeaponSystem>();
@@ -44,110 +43,105 @@ public class PlayerControles : MonoBehaviour
         currentWeapon = WeaponType.Ranged;
     }
 
-    private void Update()
-    {
-        if (!inMenu)
-        {
+    private void Update() {
+        if (!inMenu) {
             rb.velocity = moveInput * moveSpeed * sprintMultiplier;
 
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
             transform.up = direction;
-        }
-        else
-        {
+        } else {
             rb.velocity = moveInput * 0;
         }
     }
 
-    public void Move(InputAction.CallbackContext context)
-    {
+    private void OnTriggerEnter2D(Collider2D collision) {
+        Interact interactable = collision.GetComponent<Interact>();
+        if (interactable != null) {
+            _Interact = interactable;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (_Interact != null && collision.GetComponent<Interact>() == _Interact && !inMenu) {
+            _Interact = null;
+        }
+    }
+
+    public void Move(InputAction.CallbackContext context) {
         moveInput = context.ReadValue<Vector2>();
     }
 
-    public void Sprint(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
+    public void Sprint(InputAction.CallbackContext context) {
+        if (context.started) {
             sprintMultiplier = maxSprint;
         }
-        else if (context.canceled)
-        {
+        else if (context.canceled) {
             sprintMultiplier = 1f;
         }
     }
 
-    public void Interact()
-    {
-        
+    public void Interact() {
+        Interact[] objectsWithScript = FindObjectsOfType<Interact>();
+        foreach (Interact obj in objectsWithScript)
+        {
+            if (obj.playerIsHere == true)
+            {
+                obj.ActivateInteration();
+            }
+        }
     }
 
-    public void SwitchWeapon(InputAction.CallbackContext context)
-    {
+    public void SwitchWeapon(InputAction.CallbackContext context) {
         if (Time.time < lastSwitchTime + switchCooldown) return;
         float scrollValue = context.ReadValue<float>();
 
-        if (scrollValue > 0 || scrollValue < 0)
-        {
+        if (scrollValue > 0 || scrollValue < 0) {
             lastSwitchTime = Time.time;
-            if (currentWeapon == WeaponType.Melee)
-            {
+            if (currentWeapon == WeaponType.Melee) {
                 Debug.Log("ranged");
                 currentWeapon = WeaponType.Ranged;
-            } else if (currentWeapon == WeaponType.Ranged)
-            {
+            } else if (currentWeapon == WeaponType.Ranged) {
                 Debug.Log("melee");
                 currentWeapon = WeaponType.Melee;
             }
         }
     }
 
-    public void Attack()
-    {
-        if (currentWeapon == WeaponType.Melee)
-        {
+    public void Attack() {
+        if (currentWeapon == WeaponType.Melee) {
             _MeleeWeaponSystem.PerformAttack();
         }
-        else if (currentWeapon == WeaponType.Ranged)
-        {
+        else if (currentWeapon == WeaponType.Ranged) {
             _RangedWeaponSystem.PerformAttack();
         }
     }
 
-    public void Use()
-    {
+    public void Use() {
         
     }
 
-    public void Inventory()
-    {
-        if (inventoryMenu != null)
-        {
-            if (inventoryMenu.gameObject.activeSelf)
-            {
+    public void Inventory() {
+        if (inventoryMenu != null) {
+            if (inventoryMenu.gameObject.activeSelf) {
                 inventoryMenu.gameObject.SetActive(false);
                 inMenu = true;
             }
-            else if (!inventoryMenu.gameObject.activeSelf)
-            {
+            else if (!inventoryMenu.gameObject.activeSelf) {
                 inventoryMenu.gameObject.SetActive(true);
                 inMenu = false;
             }
         }
     }
 
-    public void Pause()
-    {
-        if (pauseMenu != null)
-        {
-            if (pauseMenu.gameObject.activeSelf)
-            {
+    public void Pause() {
+        if (pauseMenu != null) {
+            if (pauseMenu.gameObject.activeSelf) {
                 pauseMenu.gameObject.SetActive(false);
                 inMenu = false;
             }
-            else if (!pauseMenu.gameObject.activeSelf)
-            {
+            else if (!pauseMenu.gameObject.activeSelf) {
                 pauseMenu.gameObject.SetActive(true);
                 inMenu = true;
             }

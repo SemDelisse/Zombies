@@ -4,13 +4,13 @@ using UnityEditor;
 using UnityEngine;
 using static MeleeWeaponSystem;
 using static RangedWeaponSystem;
-using static PlayerControles;
+using static PlayerControls;
 
 public class GameUI : MonoBehaviour
 {
 
     [Header("Scripts")]
-    private PlayerControles _PlayerControles;
+    private PlayerControls _PlayerControles;
     private HealthSystem _HealthSystem;
     private MeleeWeaponSystem _MeleeWeaponSystem;
     private RangedWeaponSystem _RangedWeaponSystem;
@@ -37,9 +37,8 @@ public class GameUI : MonoBehaviour
     void Start()
     {
         GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-        {
-            _PlayerControles = player.GetComponent<PlayerControles>();
+        if (player != null) {
+            _PlayerControles = player.GetComponent<PlayerControls>();
             _HealthSystem = player.GetComponent<HealthSystem>();
             _MeleeWeaponSystem = player.GetComponent<MeleeWeaponSystem>();
             _RangedWeaponSystem = player.GetComponent<RangedWeaponSystem>();
@@ -47,21 +46,17 @@ public class GameUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         MeleeWeapon meleeWeapon = _MeleeWeaponSystem.weapons[_MeleeWeaponSystem.currentWeaponIndex];
         RangedWeapon rangedWeapon = _RangedWeaponSystem.weapons[_RangedWeaponSystem.currentWeaponIndex];
 
         health = _HealthSystem.maxHealth;
         killCount = _HealthSystem.killCount;
 
-        if (_PlayerControles.currentWeapon == WeaponType.Melee)
-        {
+        if (_PlayerControles.currentWeapon == WeaponType.Melee) {
             currentEquipedWeapon = meleeWeapon.weaponName;
             secondEquipedWeapon = rangedWeapon.weaponName;
-        }
-        else if (_PlayerControles.currentWeapon != WeaponType.Ranged)
-        {
+        } else if (_PlayerControles.currentWeapon != WeaponType.Ranged) {
             currentEquipedWeapon = rangedWeapon.weaponName;
             secondEquipedWeapon = meleeWeapon.weaponName;
         }

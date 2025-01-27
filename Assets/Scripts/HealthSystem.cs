@@ -9,32 +9,20 @@ public class HealthSystem : MonoBehaviour
     public int currentHealth;
     public int killCount = 0;
 
-    void Start()
-    {
+    void Start() {
         currentHealth = maxHealth;
     }
 
-    void Update()
-    {
-
-    }
-
-    public void TakeDamage(int damage)
-    {
-        if (currentHealth <= 1)
-        {
-            if (gameObject.CompareTag("Player"))
-            {
+    public void TakeDamage(int damage) {
+        if (currentHealth <= 1) {
+            if (gameObject.CompareTag("Player")) {
 
             }
-            else if (gameObject.CompareTag("Enemy"))
-            {
+            else if (gameObject.CompareTag("Enemy")) {
                 killCount++;
                 Destroy(gameObject);
             }
-        }
-        else
-        {
+        } else {
             currentHealth -= damage;
         }
     }

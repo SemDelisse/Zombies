@@ -11,8 +11,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private Transform target;
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         Vector3 newPos = new Vector3(target.position.x + XOffset, target.position.y + YOffSet, target.position.z + ZOffset);
         transform.position = Vector3.Slerp(transform.position, newPos, FollowSpeed * Time.deltaTime);
     }

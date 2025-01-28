@@ -11,7 +11,8 @@ public class Interact : MonoBehaviour
     private PlayerControls _PlayerControls;
 
     [Header("Store menu")]
-    [SerializeField] private Canvas storeMenu;
+    private ShopSystem _ShopSystem;
+    public Canvas shopMenu;
 
     private void Start() {
         _PlayerControls = FindAnyObjectByType<PlayerControls>();
@@ -30,9 +31,14 @@ public class Interact : MonoBehaviour
     }
 
     public void ActivateInteration() {
-        if (storeMenu != null) {
-            storeMenu.gameObject.SetActive(true);
-            _PlayerControls.inMenu = true;
+        if (shopMenu != null) {
+            if (shopMenu.gameObject.activeSelf) {
+                shopMenu.gameObject.SetActive(false);
+                _PlayerControls.inMenu = false;
+            } else if (!shopMenu.gameObject.activeSelf) {
+                shopMenu.gameObject.SetActive(true);
+                _PlayerControls.inMenu = true;
+            }
         }
     }
 }

@@ -8,14 +8,14 @@ public class Bullet : MonoBehaviour
     public float speed;
     public int damage;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
     private PlayerControls _PlayerControles;
 
     private float maxTime = 10f;
     private float timer;
 
     void Start() {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         _PlayerControles = FindObjectOfType<PlayerControls>();
         timer = maxTime;
     }
@@ -23,9 +23,9 @@ public class Bullet : MonoBehaviour
     private void Update() {
         if (_PlayerControles != null) {
             if (!_PlayerControles.inMenu) {
-                rb.velocity = transform.up * speed;
+                _rb.velocity = transform.up * speed;
             } else if (_PlayerControles.inMenu) {
-                rb.velocity = transform.up * 0;
+                _rb.velocity = transform.up * 0;
             }
         }
 

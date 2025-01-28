@@ -5,21 +5,22 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
+    private GameUI _GameUI;
     public int maxHealth = 5;
     public int currentHealth;
-    public int killCount = 0;
 
     void Start() {
+        _GameUI = FindObjectOfType<GameUI>();
         currentHealth = maxHealth;
     }
 
     public void TakeDamage(int damage) {
         if (currentHealth <= 1) {
             if (gameObject.CompareTag("Player")) {
-
+                // Player Die logic
             }
             else if (gameObject.CompareTag("Enemy")) {
-                killCount++;
+                _GameUI.killCount++;
                 Destroy(gameObject);
             }
         } else {

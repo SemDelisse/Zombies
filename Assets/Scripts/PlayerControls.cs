@@ -6,8 +6,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerControls : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
     public bool inMenu;
+
+    [Header("Scripts and UI")]
+    private ShopSystem _ShopSystem;
+    private Interact _Interact;
+    [SerializeField] private Canvas pauseMenu;
+    [SerializeField] private Canvas inventoryMenu;
 
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -24,19 +30,8 @@ public class PlayerControls : MonoBehaviour
     private float lastSwitchTime;
     private float switchCooldown = 0.1f;
 
-    [Header("Interact System")]
-    private Interact _Interact;
-
-    [Header("Item System")]
-
-    [Header("Inventory")]
-    [SerializeField] private Canvas inventoryMenu;
-
-    [Header("Pause menu")]
-    [SerializeField] private Canvas pauseMenu;
-
     void Start() {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         _MeleeWeaponSystem = GetComponent<MeleeWeaponSystem>();
         _RangedWeaponSystem = GetComponent<RangedWeaponSystem>();
         _Interact = GetComponent<Interact>();
@@ -45,14 +40,14 @@ public class PlayerControls : MonoBehaviour
 
     private void Update() {
         if (!inMenu) {
-            rb.velocity = moveInput * moveSpeed * sprintMultiplier;
+            _rb.velocity = moveInput * moveSpeed * sprintMultiplier;
 
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
             transform.up = direction;
         } else {
-            rb.velocity = moveInput * 0;
+            _rb.velocity = moveInput * 0;
         }
     }
 
@@ -122,15 +117,40 @@ public class PlayerControls : MonoBehaviour
         
     }
 
+    public void Escape() {
+        if (inMenu) {
+            Interact[] objectsWithScript = FindObjectsOfType<Interact>();
+            foreach (Interact obj in objectsWithScript) {
+                if (obj.shopMenu != null) {
+                    if (obj.shopMenu.gameObject.activeSelf) {
+                        obj.ActivateInteration();
+                    }
+                }
+            }
+
+            if (pauseMenu != null) {
+                if (pauseMenu.gameObject.activeSelf) {
+                    Pause();
+                }
+            } else if (inventoryMenu != null) {
+                if (inventoryMenu.gameObject.activeSelf) {
+                    Inventory();
+                }
+            }
+        } else {
+            Pause();
+        }
+    }
+
     public void Inventory() {
         if (inventoryMenu != null) {
             if (inventoryMenu.gameObject.activeSelf) {
                 inventoryMenu.gameObject.SetActive(false);
-                inMenu = true;
+                inMenu = false;
             }
             else if (!inventoryMenu.gameObject.activeSelf) {
                 inventoryMenu.gameObject.SetActive(true);
-                inMenu = false;
+                inMenu = true;
             }
         }
     }

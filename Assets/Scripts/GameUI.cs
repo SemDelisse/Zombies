@@ -18,10 +18,10 @@ public class GameUI : MonoBehaviour
     [Header("Player Info")]
     [SerializeField] private int health;
     [SerializeField] private int mana;
-    [SerializeField] private int gold = 0;
-    [SerializeField] private int silver = 0;
-    [SerializeField] private int ammo = 0;
-    [SerializeField] private int killCount;
+    public int gold = 0;
+    public int silver = 0;
+    public int ammo = 0;
+    public int killCount = 0;
     [SerializeField] private string currentEquipedWeapon;
     [SerializeField] private string secondEquipedWeapon;
     [SerializeField] private string equipedItem;
@@ -51,7 +51,6 @@ public class GameUI : MonoBehaviour
         RangedWeapon rangedWeapon = _RangedWeaponSystem.weapons[_RangedWeaponSystem.currentWeaponIndex];
 
         health = _HealthSystem.maxHealth;
-        killCount = _HealthSystem.killCount;
 
         if (_PlayerControles.currentWeapon == WeaponType.Melee) {
             currentEquipedWeapon = meleeWeapon.weaponName;

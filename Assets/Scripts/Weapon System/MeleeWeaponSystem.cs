@@ -8,7 +8,6 @@ public class MeleeWeaponSystem : MonoBehaviour
         public string weaponName;
         public int damage;
         public float attackDistance;
-        public float attackSpeed;
         public float coneAngle;
         public float cooldown;
         public int maxTargetsToCheck;

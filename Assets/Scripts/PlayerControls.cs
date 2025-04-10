@@ -95,10 +95,10 @@ public class PlayerControls : MonoBehaviour
         if (scrollValue > 0 || scrollValue < 0) {
             lastSwitchTime = Time.time;
             if (currentWeapon == WeaponType.Melee) {
-                Debug.Log("ranged");
+                Debug.Log("Weapon typ Ranged activated");
                 currentWeapon = WeaponType.Ranged;
             } else if (currentWeapon == WeaponType.Ranged) {
-                Debug.Log("melee");
+                Debug.Log("Weapon typ Melee activated");
                 currentWeapon = WeaponType.Melee;
             }
         }

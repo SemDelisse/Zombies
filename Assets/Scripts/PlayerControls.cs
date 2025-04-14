@@ -6,16 +6,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerControls : MonoBehaviour
 {
-    private Rigidbody2D _rb;
-    public bool inMenu;
+
+    // In this class a lot of player controls and player movement gets registered here
+    // Some voids are refering to other scripts where more things are happening surroundings the player controls
+
+    // The player controls script is on the player and works with the events in unity input system
+    // All input of the player that is needed for this game goes through this script and if needed to other scripts
 
     [Header("Scripts and UI")]
     private ShopSystem _ShopSystem;
     private Interact _Interact;
     [SerializeField] private Canvas pauseMenu;
     [SerializeField] private Canvas inventoryMenu;
+    public bool inMenu;
 
     [Header("Movement")]
+    private Rigidbody2D _rb;
     public float moveSpeed = 5f;
     public float maxSprint = 1.5f;
     private float sprintMultiplier = 1f;
@@ -83,7 +89,7 @@ public class PlayerControls : MonoBehaviour
         {
             if (obj.playerIsHere == true)
             {
-                obj.ActivateInteration();
+                obj.ActivateInteraction();
             }
         }
     }
@@ -123,7 +129,7 @@ public class PlayerControls : MonoBehaviour
             foreach (Interact obj in objectsWithScript) {
                 if (obj.shopMenu != null) {
                     if (obj.shopMenu.gameObject.activeSelf) {
-                        obj.ActivateInteration();
+                        obj.ActivateInteraction();
                     }
                 }
             }

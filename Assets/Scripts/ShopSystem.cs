@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class ShopSystem : MonoBehaviour
 {
+
+    // This is the script for the shop that checks all the logic for buying (or selling) things
+    // The script checks if you have enough money or materials and have the right ones
+    // It also sends or changes the information in the right scripts
+
     [Header("Scripts and UI")]
     private PlayerControls _PlayerControls;
     private Interact _Interact;
@@ -25,7 +30,7 @@ public class ShopSystem : MonoBehaviour
         silver = _GameUI.silver;
     }
 
-    public void Store() {
+    public void Shop() {
         
     }
 }

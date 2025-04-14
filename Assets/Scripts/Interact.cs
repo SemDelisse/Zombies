@@ -7,6 +7,10 @@ using UnityEngine.Events;
 public class Interact : MonoBehaviour
 {
 
+    // This script is on environment objects that can be interacted with
+    // With this script on the object you can set it to different kind of interactions
+    // Like open a menu, trigger something or other things.
+
     public bool playerIsHere = false;
     private PlayerControls _PlayerControls;
 
@@ -30,7 +34,9 @@ public class Interact : MonoBehaviour
         }
     }
 
-    public void ActivateInteration() {
+    public void ActivateInteraction() {
+        // If the trigger object is for the shop there needs to be a shop canvas.
+        // Here it checks for it and set it active or inactive based on what it currently is.
         if (shopMenu != null) {
             if (shopMenu.gameObject.activeSelf) {
                 shopMenu.gameObject.SetActive(false);

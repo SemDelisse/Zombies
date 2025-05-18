@@ -15,7 +15,6 @@ public class PlayerControls : MonoBehaviour
 
     [Header("Scripts and UI")]
     private ShopSystem _ShopSystem;
-    private Interact _Interact;
     [SerializeField] private Canvas pauseMenu;
     [SerializeField] private Canvas inventoryMenu;
     public bool inMenu;
@@ -36,12 +35,17 @@ public class PlayerControls : MonoBehaviour
     private float lastSwitchTime;
     private float switchCooldown = 0.1f;
 
+    [Header("Interaction")]
+    private LayerMask interactionLayer;
+    private float interactionRange = 0.5f;
+    [SerializeField] Transform playerForwardTransform;
+
     void Start() {
         _rb = GetComponent<Rigidbody2D>();
         _MeleeWeaponSystem = GetComponent<MeleeWeaponSystem>();
         _RangedWeaponSystem = GetComponent<RangedWeaponSystem>();
-        _Interact = GetComponent<Interact>();
         currentWeapon = WeaponType.Ranged;
+        interactionLayer = LayerMask.GetMask("Interactable");
     }
 
     private void Update() {
@@ -54,19 +58,6 @@ public class PlayerControls : MonoBehaviour
             transform.up = direction;
         } else {
             _rb.velocity = moveInput * 0;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        Interact interactable = collision.GetComponent<Interact>();
-        if (interactable != null) {
-            _Interact = interactable;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision) {
-        if (_Interact != null && collision.GetComponent<Interact>() == _Interact && !inMenu) {
-            _Interact = null;
         }
     }
 
@@ -84,12 +75,18 @@ public class PlayerControls : MonoBehaviour
     }
 
     public void Interact() {
-        Interact[] objectsWithScript = FindObjectsOfType<Interact>();
-        foreach (Interact obj in objectsWithScript)
-        {
-            if (obj.playerIsHere == true)
-            {
-                obj.ActivateInteraction();
+        Vector2 origin = playerForwardTransform.position;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(origin, interactionRange, interactionLayer);
+
+        if (hits.Length > 0 && !inMenu) {
+            foreach (Collider2D hit in hits) {
+                Debug.Log("Interacted");
+                //IInteractable interactable = hit.GetComponent<IInteractable>();
+                //if (interactable != null) {
+                //    interactable.Interact();
+                //    Debug.Log("Interacted with: " + hit.name);
+                //    break;
+                //}
             }
         }
     }
@@ -124,28 +121,6 @@ public class PlayerControls : MonoBehaviour
     }
 
     public void Escape() {
-        if (inMenu) {
-            Interact[] objectsWithScript = FindObjectsOfType<Interact>();
-            foreach (Interact obj in objectsWithScript) {
-                if (obj.shopMenu != null) {
-                    if (obj.shopMenu.gameObject.activeSelf) {
-                        obj.ActivateInteraction();
-                    }
-                }
-            }
-
-            if (pauseMenu != null) {
-                if (pauseMenu.gameObject.activeSelf) {
-                    Pause();
-                }
-            } else if (inventoryMenu != null) {
-                if (inventoryMenu.gameObject.activeSelf) {
-                    Inventory();
-                }
-            }
-        } else {
-            Pause();
-        }
     }
 
     public void Inventory() {

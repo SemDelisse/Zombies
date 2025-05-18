@@ -12,7 +12,6 @@ public class ShopSystem : MonoBehaviour
 
     [Header("Scripts and UI")]
     private PlayerControls _PlayerControls;
-    private Interact _Interact;
     private GameUI _GameUI;
 
     [Header("Shop items and money")]
@@ -24,7 +23,6 @@ public class ShopSystem : MonoBehaviour
     void Start()
     {
         _PlayerControls = FindObjectOfType<PlayerControls>();
-        _Interact = GetComponent<Interact>();
         _GameUI = FindObjectOfType<GameUI>();
         gold = _GameUI.gold;
         silver = _GameUI.silver;

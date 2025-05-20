@@ -2086,7 +2086,7 @@ GameObject:
   - component: {fileID: 818908616}
   - component: {fileID: 818908618}
   m_Layer: 8
-  m_Name: Square
+  m_Name: Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2153,8 +2153,8 @@ Transform:
   m_GameObject: {fileID: 818908613}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.59, y: -0.58, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -8.42, y: -0.47, z: 0}
+  m_LocalScale: {x: 1, y: 2.0391, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

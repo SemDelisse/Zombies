@@ -21,8 +21,8 @@ public class PlayerControls : MonoBehaviour
 
     [Header("Movement")]
     private Rigidbody2D _rb;
-    public float moveSpeed = 5f;
-    public float maxSprint = 1.5f;
+    private float moveSpeed = 5f;
+    private float maxSprint = 1.5f;
     private float sprintMultiplier = 1f;
     private Vector2 moveInput;
     private Vector2 mousePosition;
@@ -80,13 +80,12 @@ public class PlayerControls : MonoBehaviour
 
         if (hits.Length > 0 && !inMenu) {
             foreach (Collider2D hit in hits) {
-                Debug.Log("Interacted");
-                //IInteractable interactable = hit.GetComponent<IInteractable>();
-                //if (interactable != null) {
-                //    interactable.Interact();
-                //    Debug.Log("Interacted with: " + hit.name);
-                //    break;
-                //}
+                IInteractable interactable = hit.GetComponent<IInteractable>();
+                if (interactable != null) {
+                    interactable.Interact();
+                    Debug.Log("Interacted with: " + hit.name);
+                    break;
+                }
             }
         }
     }

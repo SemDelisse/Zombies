@@ -29,7 +29,7 @@ public class GameUI : MonoBehaviour
     [Header("Game Info")]
     [SerializeField] private float totalGameTime;
     [SerializeField] private int enemiesLeft;
-    [SerializeField] private int roundNumber = 1;
+    //[SerializeField] private int roundNumber = 1;
     [SerializeField] private float nextRoundIn;
     // Game time and time till next round also needs to be in this script
 
